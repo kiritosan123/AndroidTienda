@@ -1,11 +1,16 @@
 package com.example.kirito.androidtienda.Retrofit;
 
+import com.example.kirito.androidtienda.Model.Banner;
 import com.example.kirito.androidtienda.Model.CheckUserResponse;
 import com.example.kirito.androidtienda.Model.User;
+
+import java.util.List;
+import java.util.Observable;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface IDrinkShopAPI {
@@ -23,5 +28,8 @@ public interface IDrinkShopAPI {
     @FormUrlEncoded
     @POST("getuser.php")
     Call<User> getUserInformation(@Field("phone") String phone);
+
+    @GET("getbanner.php")
+    io.reactivex.Observable<List<Banner>> getBanners();
 
 }

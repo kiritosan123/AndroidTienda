@@ -2,8 +2,14 @@
     <string name="app_name">AndroidTienda</string>
 
 
-
     <string name="FACEBOOK_APP_ID">2130987557150457</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN">f95348a53d219a29dc3e2e8554c71ab3</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

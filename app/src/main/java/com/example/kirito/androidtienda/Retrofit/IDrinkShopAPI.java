@@ -1,6 +1,7 @@
 package com.example.kirito.androidtienda.Retrofit;
 
 import com.example.kirito.androidtienda.Model.Banner;
+import com.example.kirito.androidtienda.Model.Category;
 import com.example.kirito.androidtienda.Model.CheckUserResponse;
 import com.example.kirito.androidtienda.Model.User;
 
@@ -31,5 +32,8 @@ public interface IDrinkShopAPI {
 
     @GET("getbanner.php")
     io.reactivex.Observable<List<Banner>> getBanners();
+
+    @GET("getmenu.php")
+    io.reactivex.Observable<List<Category>> getMenu();
 
 }

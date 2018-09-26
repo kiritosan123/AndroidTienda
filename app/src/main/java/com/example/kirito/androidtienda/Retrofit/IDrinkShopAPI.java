@@ -3,6 +3,7 @@ package com.example.kirito.androidtienda.Retrofit;
 import com.example.kirito.androidtienda.Model.Banner;
 import com.example.kirito.androidtienda.Model.Category;
 import com.example.kirito.androidtienda.Model.CheckUserResponse;
+import com.example.kirito.androidtienda.Model.Drink;
 import com.example.kirito.androidtienda.Model.User;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface IDrinkShopAPI {
                                @Field("name") String name,
                                @Field("address") String address,
                                @Field("birthdate") String birthdate);
+
+    @FormUrlEncoded
+    @POST("getdrink.php")
+    io.reactivex.Observable<List<Drink>> getDrink(@Field("menuid") String menuID);
 
     @FormUrlEncoded
     @POST("getuser.php")

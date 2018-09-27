@@ -22,6 +22,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.kirito.androidtienda.Adapter.CategoryAdapter;
 import com.example.kirito.androidtienda.Model.Banner;
 import com.example.kirito.androidtienda.Model.Category;
+import com.example.kirito.androidtienda.Model.Drink;
 import com.example.kirito.androidtienda.Retrofit.IDrinkShopAPI;
 import com.example.kirito.androidtienda.Utils.Common;
 
@@ -95,6 +96,21 @@ public class HomeActivity extends AppCompatActivity
         //Obtenemos Menu (las imagenes del menu)
         getMenu();
 
+        //Save newest Topping List
+        getToppingList();
+
+    }
+
+    private void getToppingList() {
+        compositeDisposable.add(mService.getDrink(Common.TOPPING_MENU_ID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Drink>>() {
+                    @Override
+                    public void accept(List<Drink> drinks) throws Exception {
+                        Common.toppingList = drinks;
+                    }
+                }));
     }
 
     private void getMenu() {

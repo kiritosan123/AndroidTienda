@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     >
 
     <LinearLayout
@@ -14,7 +13,9 @@
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        >
 
         <ImageView
             android:id="@+id/img_cart_product"
@@ -43,6 +44,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
+                    app:initialNumber="1"
+                    app:finalNumber="100"
                     app:backGroundColor="@color/colorAccent"
                     />
             </RelativeLayout>
@@ -282,6 +285,28 @@
                 </RadioGroup>
 
             </RelativeLayout>
+
+            <!-- Grupo 4 Cubierta(Topping)-->
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Cubierta"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_topping"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
         </LinearLayout>

@@ -37,7 +37,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
 
-    //para hacer numeros mas elegantes
+    //para hacer numeros que se incrementa en un cuadrito
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
 
@@ -51,4 +51,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
     implementation 'com.facebook.android:account-kit-sdk:4.+'
+
+    implementation 'android.arch.persistence.room:runtime:1.1.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.1.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
 }

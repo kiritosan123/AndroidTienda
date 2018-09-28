@@ -20,6 +20,9 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.kirito.androidtienda.Adapter.CategoryAdapter;
+import com.example.kirito.androidtienda.Database.DataSource.CartRepository;
+import com.example.kirito.androidtienda.Database.Local.CartDataBase;
+import com.example.kirito.androidtienda.Database.Local.CartDataSource;
 import com.example.kirito.androidtienda.Model.Banner;
 import com.example.kirito.androidtienda.Model.Category;
 import com.example.kirito.androidtienda.Model.Drink;
@@ -98,6 +101,16 @@ public class HomeActivity extends AppCompatActivity
 
         //Save newest Topping List
         getToppingList();
+
+        //Iniciamos la base de datos
+        initDB();
+
+    }
+
+    private void initDB() {
+
+        Common.cartDataBase = CartDataBase.getInstance(this);
+        Common.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Common.cartDataBase.cartDAO()));
 
     }
 

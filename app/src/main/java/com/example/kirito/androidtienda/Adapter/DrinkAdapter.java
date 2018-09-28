@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.kirito.androidtienda.Database.ModelDB.Cart;
 import com.example.kirito.androidtienda.Interface.IItemClickListener;
 import com.example.kirito.androidtienda.Model.Drink;
 import com.example.kirito.androidtienda.R;
 import com.example.kirito.androidtienda.Utils.Common;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -218,7 +221,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
                     return;
                 }
 
-                showConfirmDialog(position,txt_count.getNumber(),Common.sizeOfCup,Common.sugar,Common.ice);
+                showConfirmDialog(position,txt_count.getNumber());
                 dialog.dismiss();
             }
         });
@@ -229,18 +232,18 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
 
     }
 
-    private void showConfirmDialog(int position, String number, int sizeOfCup, int sugar, int ice) {
+    private void showConfirmDialog(int position, final String number) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.confirm_add_to_cart_layout, null);
 
         //Vista
         ImageView img_product_dialog = (ImageView)itemView.findViewById(R.id.img_product);
-        TextView txt_product_dialog = (TextView)itemView.findViewById(R.id.txt_cart_product_name);
+        final TextView txt_product_dialog = (TextView)itemView.findViewById(R.id.txt_cart_product_name);
         TextView txt_product_price = (TextView)itemView.findViewById(R.id.txt_cart_product_price);
         TextView txt_sugar = (TextView)itemView.findViewById(R.id.txt_sugar);
         TextView txt_ice = (TextView)itemView.findViewById(R.id.txt_ice);
-        TextView txt_topping_extra = (TextView)itemView.findViewById(R.id.txt_topping_extra);
+        final TextView txt_topping_extra = (TextView)itemView.findViewById(R.id.txt_topping_extra);
 
         //Ponemos los datos
         Picasso.with(context).load(drinkList.get(position).Link).into(img_product_dialog);
@@ -263,13 +266,35 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
             topping_final_comment.append(line).append("\n");
         txt_topping_extra.setText(topping_final_comment);
 
+        final double finalPrice = price;
         builder.setNegativeButton("CONFIRMAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //Adicionamos a SQLite
-                //implementamos luego
+
                 dialog.dismiss();
+
+                try {
+                    //Adicionamos a SQLite
+                    //Crear una nueva Cart Item
+                    Cart cartItem = new Cart();
+                    cartItem.name = txt_product_dialog.getText().toString();
+                    cartItem.amount = Integer.parseInt(number);
+                    cartItem.ice = Common.ice;
+                    cartItem.sugar = Common.sugar;
+                    cartItem.price = finalPrice;
+                    cartItem.toppingExtras = txt_topping_extra.getText().toString();
+
+                    //Adicionamos a la base de Datos (Database)
+                    Common.cartRepository.insertToCart(cartItem);
+
+                    Log.d("VIDDA_DEBUG", new Gson().toJson(cartItem));
+
+                    Toast.makeText(context, "Articulo guardado en la carta exitosamente", Toast.LENGTH_SHORT).show();
+                }catch (Exception ex){
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
